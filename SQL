@@ -67,8 +67,7 @@ CREATE TABLE Ventas
     PRIMARY KEY (ID_Venta),
     FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_Cliente)  
 );
-SELECT * FROM Clientes;
-INSERT INTO Clientes(Nombre,Telefono,Direccion) VALUES ('PEPE','11557709','Urquiza 559')
+
 
 
 
