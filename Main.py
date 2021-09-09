@@ -1,7 +1,10 @@
 import os
 import Logica
+
 def MenuAdmin():
     while(1):
+        if(Logica.BD.mydb is None):
+            break
         os.system('cls')
         Opcion = input("1.Gestionar Clientes\n2.Gestionar Prooveedores\n3.Gestionar Productos\n9.Salir\n")
         if(Opcion=='1'):
@@ -12,8 +15,7 @@ def MenuAdmin():
             GestionarProductos()
         elif(Opcion=='9'):
             break
-        else:
-            print("Valor ingresado incorrecto\n")  
+         
 
 def GestionarClientes():
     while(1):
@@ -24,15 +26,13 @@ def GestionarClientes():
             Logica.CrearNuevoUsuario("Clientes")
         if(Opcion=='3'):
             ID_Borrar = input("Ingrese el id del Cliente que desea borrar\n")
-            Logica.BorrarCliente(ID_Borrar)
+            Logica.BorrarUsuario(ID_Borrar)
         if(Opcion=='4'):
             ID_Modificar = input("Ingrese el id del Cliente a modificar\n")
             Logica.ModificarCliente(ID_Modificar)
         if(Opcion=='9'):
             break
-        else:
-            print("Valor ingresado incorrecto\n")
-
+        
 def GestionarProveedores():
     while(1):
         Opcion = input("1.Mostrar todos los Proveedores\n2.Nuevo Proveedor\n3.Borrar Proveedor\n4.Modificar Proveedor\n9.Salir\n")
@@ -48,9 +48,7 @@ def GestionarProveedores():
             Logica.ModificarProovedor(ID_Modificar)
         if(Opcion=='9'):
             break
-        else:
-            print("Valor ingresado incorrecto\n")
-
+        
 def GestionarProductos():
     while(1):
         Opcion = input("1.Mostrar todos los libros\n2.Alta libro\n3.Baja Libro\n4.Modificar libro\n9.Salir\n")
@@ -65,6 +63,5 @@ def GestionarProductos():
             pass
         if(Opcion=='9'):
             break
-        else:
-            print("Valor ingresado incorrecto\n")
+        
 MenuAdmin()
