@@ -10,7 +10,7 @@ def MenuAdmin():
         if(Opcion=='1'):
             GestionarClientes()
         if(Opcion=='2'):
-            GestionarClientes()
+            GestionarProveedores()
         elif(Opcion=='3'):
             GestionarProductos()
         elif(Opcion=='9'):
@@ -43,7 +43,7 @@ def GestionarProveedores():
         if(Opcion=='3'):
             ID_Borrar = input("Ingrese el id del Proveedor que desea borrar\n")
             Logica.BorrarProovedor(ID_Borrar)
-        if(Opcion=='4'):
+        if(Opcion=='4'): #
             ID_Modificar = input("Ingrese el id del Proovedor a modificar\n")
             Logica.ModificarProovedor(ID_Modificar)
         if(Opcion=='9'):
@@ -51,16 +51,16 @@ def GestionarProveedores():
         
 def GestionarProductos():
     while(1):
-        Opcion = input("1.Mostrar todos los libros\n2.Alta libro\n3.Baja Libro\n4.Modificar libro\n9.Salir\n")
+        Opcion = input("1.Mostrar todos los productos\n2.Alta productos\n3.Baja productos\n4.Modificar productos\n9.Salir\n")
         if(Opcion=='1'):
-            Logica.MostrarUsuarios()
+            Logica.MostrarProductos()
         if(Opcion=='2'):
-            pass
+            Logica.CrearProductos()
         if(Opcion=='3'):
-            ID_Borrar = ("Ingrese el id del usuario que desea borrar\n")
-            Logica.BorrarUsuario(ID_Borrar)
+            ID_Borrar = input("Ingrese el id del usuario que desea borrar\n")
+            Logica.BorrarProductos(ID_Borrar)
         if(Opcion=='4'):
-            pass
+            Logica.ModificarProductos()
         if(Opcion=='9'):
             break
         
