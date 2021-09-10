@@ -13,19 +13,16 @@ except mysql.connector.errors.DatabaseError:
   mydb = None
   mycursor = None
 
+def EjecutarSQL(sql):
+  mycursor.execute(sql)
+  mydb.commit()
+
 def EjecutarSQL_VAL(sql,val):
-  if (mycursor is None and mydb is None):
-    print ("No fue posible conectarse a la BD")
-  else:  
-    mycursor.executemany(sql, val)
-    mydb.commit()
+  mycursor.executemany(sql, val)
+  mydb.commit()
 
 def Mostrar(Parametro):
-  if (mycursor is None and mydb is None):
-    print("No fue posible conectarse a la BD")
-  else:  
-    mycursor.execute(Parametro)
-    myresult = mycursor.fetchall()
-    for x in myresult:
-      print(x)
-
+  mycursor.execute(Parametro)
+  myresult = mycursor.fetchall()
+  for x in myresult:
+    print(x)
