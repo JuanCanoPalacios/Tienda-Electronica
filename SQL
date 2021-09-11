@@ -14,25 +14,10 @@ CREATE TABLE Clientes
 CREATE TABLE Productos
 (
 	ID_Producto INT NOT NULL AUTO_INCREMENT,
-    ID_Stock INT NOT NULL,
-    Precio INT NOT NULL, 
     Descripcion VARCHAR(100),
-    PRIMARY KEY (ID_Producto)
-);
-CREATE TABLE Stock
-(
-	ID_Stock INT NOT NULL AUTO_INCREMENT,
-    ID_Producto INT NOT NULL,
     Cantidad INT NOT NULL,
-    PRIMARY KEY (ID_Stock),
-    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
-);
-CREATE TABLE Productos_Proveedor
-(
-	ID_Productos_Proveedor INT NOT NULL AUTO_INCREMENT,
-    ID_Producto INT NOT NULL,
-    PRIMARY KEY (ID_Productos_Proveedor),
-    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
+    Precio INT NOT NULL, 
+    PRIMARY KEY (ID_Producto)
 );
 CREATE TABLE Productos_Reservados
 (
@@ -40,16 +25,24 @@ CREATE TABLE Productos_Reservados
     ID_Producto INT NOT NULL,
     PRIMARY KEY (ID_Producto_Reservado),
     FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
-    
 );
 CREATE TABLE Proveedor
 (
 	ID_Proveedor INT NOT NULL AUTO_INCREMENT,
-    ID_Productos_Proveedor INT NOT NULL,
     Nombre VARCHAR(45) NOT NULL,
-    Telefono INT NOT NULL,
-    PRIMARY KEY  (ID_Proveedor),
-    FOREIGN KEY (ID_Productos_Proveedor) REFERENCES Productos_Proveedor(ID_Productos_Proveedor)
+    Email VARCHAR(45),
+    Telefono INT,
+    PRIMARY KEY (ID_Proveedor)
+);
+CREATE TABLE Productos_Proveedor
+(
+	ID_Producto INT NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(45) NOT NULL,
+    Descripcion VARCHAR(100),
+    Precio INT NOT NULL,
+    ID_Proveedor INT,
+    PRIMARY KEY (ID_Producto),
+    FOREIGN KEY (ID_Proveedor) REFERENCES Proveedor(ID_Proveedor)
 );
 CREATE TABLE Compras
 (
@@ -67,7 +60,6 @@ CREATE TABLE Ventas
     PRIMARY KEY (ID_Venta),
     FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_Cliente)  
 );
-
 
 
 
