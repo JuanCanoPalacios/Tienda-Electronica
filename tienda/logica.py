@@ -101,3 +101,20 @@ def modificarVenta(ID):
     sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto WHERE ID_Venta=%s"
     val  = [(Id_Cliente,Id_Producto,ID)]
     db.ejecutarSQL_VAL(sql,val)
+#Compras
+def crearCompra():
+    Id_Venta = input("Ingrese el id de la venta: \t")
+    Id_Cliente = input("Ingrese el id del cliente: \t")
+    sql = "INSERT INTO Compras (ID_Venta, ID_Cliente) VALUES (%s,%s)"
+    val  = [(Id_Venta, Id_Cliente)]
+    db.ejecutarSQL_VAL(sql,val)
+
+def borrarCompra(ID):
+    db.ejecutarSQL("DELETE FROM Compras WHERE ID_Venta="+ID)
+
+def modificarCompra(ID_MOD):
+    Id_Venta = input("Ingrese el nuevo Id de la venta: \t")
+    Id_Cliente = input("Ingrese el nuevo Id del cliente: \t")
+    sql = "UPDATE Compras SET ID_Venta=%s, ID_Cliente WHERE ID_Venta=%s"
+    val  = [(Id_Venta, Id_Cliente,ID)]
+    db.ejecutarSQL_VAL(sql,val)
