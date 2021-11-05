@@ -96,3 +96,8 @@ def borrarVenta(ID):
     db.ejecutarSQL("DELETE FROM Ventas WHERE ID_Venta="+ID)
 
 def modificarVenta(ID):
+    Id_Cliente = input("Ingrese el nuevo Id del cliente: \t")
+    Id_Producto = input("Ingrese el nuevo Id del producto: \t")
+    sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto WHERE ID_Venta=%s"
+    val  = [(Id_Cliente,Id_Producto,ID)]
+    db.ejecutarSQL_VAL(sql,val)
