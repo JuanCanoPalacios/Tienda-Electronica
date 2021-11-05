@@ -1,9 +1,11 @@
 import os
-import db
 import logica
 
 def iniciarSesion():
-    os.system('clear')
+    os.system('cls')
+    if(logica.db.mydb is None or logica.db.mycursor is None):
+            input()
+            return
     usuario = input("Ingrese el nombre de usuario: ")
     contraseña = input("Ingrese la contraseña: ")
     
