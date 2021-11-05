@@ -56,6 +56,24 @@ def gestionarClientes():
         if(opcion=='9'):
             break
         
+
+ def gestionarCompras():
+    while(1):
+        opcion = input("\n1. Mostrar las compras\n2. Nueva compra\n3. Borrar compra\n4. Modificar compra\n9. Salir\t")
+        if(opcion=='1'):
+            logica.mostrar("Compra")     
+            confirmar()
+        if(opcion=='2'):
+            logica.crearCompra()
+            confirmar()
+        if(opcion=='3'):
+            logica.borrarCompra(input("Ingrese el ID de la Compra que desea borrar: \t"))
+            confirmar()
+        if(opcion=='4'):
+            logica.modificarCompra(input("Ingrese el ID de la Compra a modificar: \t"))
+            confirmar()
+        if(opcion=='9'):
+            break        
 def gestionarProveedores():
     while(1):
         opcion = input("\n1. Mostrar todos los Proveedores\n2. Nuevo Proveedor\n3. Borrar Proveedor\n4. Modificar Proveedor\n9. Salir\t")
