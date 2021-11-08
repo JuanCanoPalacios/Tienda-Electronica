@@ -1,3 +1,4 @@
+
 import db
 import time
 
@@ -63,7 +64,7 @@ def modificarProductos(ID_MOD):
     sql = ("UPDATE Productos SET Descripcion=%s,Cantidad=%s,Precio=%s WHERE ID_Producto=%s")
     val  = [(descripcion,Cantidad,precio,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
-
+#ProductoProveedor
 def altaProductoProveedor():
     Nombre = input("Ingrese su nombre: \t")
     Descripcion = input("Ingrese la descripcion: \t")
@@ -85,6 +86,7 @@ def modificarProductoProveedor(ID_MOD):
     val  = [(Nombre,Descripcion,Precio,ID_Proveedor,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
+#Ventas
 def realizarVenta():
     Id_Cliente = input("Ingrese el id del cliente: \t")
     Id_Producto = input("Ingrese el id del producto: \t")
@@ -103,9 +105,9 @@ def modificarVenta(ID):
     db.ejecutarSQL_VAL(sql,val)
 #Compras
 def crearCompra():
-    Id_Venta = input("Ingrese el id de la venta: \t")
-    Id_Cliente = input("Ingrese el id del cliente: \t")
-    sql = "INSERT INTO Compras (ID_Venta, ID_Cliente) VALUES (%s,%s)"
+    ID_Proveedor = input("Ingrese el id de la venta: \t")
+    ID_ProductoProveedor = input("Ingrese el id del cliente: \t")
+    sql = "INSERT INTO Compras (ID_Venta, ID_C) VALUES (%s,%s)"
     val  = [(Id_Venta, Id_Cliente)]
     db.ejecutarSQL_VAL(sql,val)
 
