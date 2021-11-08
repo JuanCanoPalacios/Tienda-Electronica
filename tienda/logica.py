@@ -28,10 +28,9 @@ def modificarCliente(ID_MOD):
 #PROVEEDOR
 def crearProveedor():
     Nombre = input("Ingrese su nombre: \t")
-    Email = input("Ingrese el email:")
     Telefono = input("Ingrese su telefono: \t")
-    sql = "INSERT INTO Proveedor (Nombre,Email,Telefono) VALUES (%s,%s,%s)"
-    val  = [(Nombre,Email,Telefono)]
+    sql = "INSERT INTO Proveedor (Nombre,Telefono) VALUES (%s,%s)"
+    val  = [(Nombre,Telefono)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarProveedor(ID):
@@ -47,11 +46,11 @@ def modificarProveedor(ID_MOD):
 
 #PRODUCTOS
 def crearProductos():
-    descripcion = input("Ingrese Nombre de los productos\n")
-    stock = input("Ingrese su stock\n")
-    precio = input("Ingrese precio\n")
-    sql = "INSERT INTO Productos (Descripcion,Cantidad,Precio) VALUES (%s,%s,%s)"
-    val  = [(descripcion,stock,precio)]
+    precio = input("Ingrese precio:\t")
+    cantidad = input("Ingrese su stock:\t")
+    descripcion = input("Ingrese Nombre de los productos:\t")
+    sql = "INSERT INTO Productos (Precio,Cantidad,Descripcion) VALUES (%s,%s,%s)"
+    val  = [(precio,cantidad,descripcion)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarProductos(ID):
