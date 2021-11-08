@@ -9,7 +9,7 @@ def iniciarSesion():
     usuario = input("Ingrese el nombre de usuario: ")
     contraseña = input("Ingrese la contraseña: ")
     
-    if(usuario == "admin" and contraseña == "a1029z"):
+    if(usuario == "admin" and contraseña == "admin"):
         menuAdmin()
     else:
         print("Datos incorrectos.")
