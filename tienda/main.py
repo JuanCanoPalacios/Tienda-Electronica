@@ -76,7 +76,7 @@ def gestionarProveedores():
         
 def gestionarProductos():
     while(1):
-        opcion = input("\n1. Mostrar todos los productos\n2. Alta productos\n3. Baja productos\n4. Modificar productos\n5. Alta producto proveedor\n6. Baja producto proveedor\n7. Modificar producto proveedor\n8. Mostrar producto proveedor\n9. Salir\t")
+        opcion = input("\n1. Mostrar todos los productos\n2. Alta productos\n3. Baja productos\n4. Modificar productos\n9. Salir\t")
         if(opcion=='1'):
             logica.mostrar("Productos")
             confirmar()
@@ -91,6 +91,7 @@ def gestionarProductos():
             confirmar()
         if(opcion=='9'):
             break
+
 def gestionarProductosProveedores():
     while(1):
         opcion = input("\n1. Mostrar producto proveedor\n2. Alta producto proveedor\n3. Baja producto proveedor\n4. Modificar producto proveedor\n9. Salir\t")
