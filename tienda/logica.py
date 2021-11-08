@@ -1,121 +1,63 @@
 
-import db
-import time
+DROP DATABASE IF EXISTS Tienda_Electronica;
 
-def mostrar(Tabla):
-    db.mostrar("SELECT * FROM "+Tabla)
+CREATE DATABASE Tienda_Electronica;
 
-#CLIENTE
-def crearCliente():
-    Nombre = input("Ingrese su nombre: \t")
-    Telefono = input("Ingrese su telefono: \t")
-    Direccion = input("Ingrese email: \t")
-    sql = "INSERT INTO Clientes (Nombre,Telefono,Direccion) VALUES (%s,%s,%s)"
-    val  = [(Nombre,Telefono,Direccion)]
-    db.ejecutarSQL_VAL(sql,val)
+USE Tienda_Electronica;
 
-def borrarCliente(ID):
-    db.ejecutarSQL("DELETE FROM Clientes WHERE ID_Cliente="+ID)
-
-def modificarCliente(ID_MOD):
-    Nombre = input("Ingrese su nombre: \t")
-    Telefono = input("Ingrese su Telefono: \t")
-    Direccion = input("Ingrese Direccion: \t")
-    sql = ("UPDATE Clientes SET Nombre=%s,Telefono=%s,Direccion=%s WHERE ID_Cliente=%s")
-    val  = [(Nombre,Telefono,Direccion,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
-
-#PROVEEDOR
-def crearProveedor():
-    Nombre = input("Ingrese su nombre: \t")
-    Telefono = input("Ingrese su telefono: \t")
-    sql = "INSERT INTO Proveedor (Nombre,Telefono) VALUES (%s,%s)"
-    val  = [(Nombre,Telefono)]
-    db.ejecutarSQL_VAL(sql,val)
-
-def borrarProveedor(ID):
-    db.ejecutarSQL("DELETE FROM Proveedor WHERE ID_Proveedor="+ID)
-
-def modificarProveedor(ID_MOD):
-    Nombre = input("Ingrese su nombre: \t")
-    Telefono = input("Ingrese su telefono: \t")
-    Email = input("Ingrese email: \t")
-    sql = ("UPDATE Proveedor SET Nombre=%s,Telefono=%s, Email=%s WHERE ID_Proveedor=%s")
-    val  = [(Nombre,Telefono,Email,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
-
-#PRODUCTOS
-def crearProductos():
-    precio = input("Ingrese precio:\t")
-    cantidad = input("Ingrese su stock:\t")
-    descripcion = input("Ingrese Nombre de los productos:\t")
-    sql = "INSERT INTO Productos (Precio,Cantidad,Descripcion) VALUES (%s,%s,%s)"
-    val  = [(precio,cantidad,descripcion)]
-    db.ejecutarSQL_VAL(sql,val)
-
-def borrarProductos(ID):
-    db.ejecutarSQL("DELETE FROM Productos WHERE ID_Producto="+ID)
-
-def modificarProductos(ID_MOD):
-    descripcion = input("Ingrese la nueva descripcion: \t")
-    Cantidad = input("Ingrese la nueva Cantidad: \t")
-    precio = input("Ingrese el nuevo precio: \t")
-    sql = ("UPDATE Productos SET Descripcion=%s,Cantidad=%s,Precio=%s WHERE ID_Producto=%s")
-    val  = [(descripcion,Cantidad,precio,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
-#ProductoProveedor
-def altaProductoProveedor():
-    Nombre = input("Ingrese su nombre: \t")
-    Descripcion = input("Ingrese la descripcion: \t")
-    Precio = input("Ingrese el precio: \t")
-    ID_Proveedor = input("Ingrese el Id del proveedor: \t")
-    sql = "INSERT INTO Productos_Proveedor (Nombre,Descripcion,Precio,ID_Proveedor) VALUES (%s,%s,%s,%s)"
-    val  = [(Nombre,Descripcion,Precio,ID_Proveedor)]
-    db.ejecutarSQL_VAL(sql,val)
-
-def bajaProductoProveedor(ID):
-    db.ejecutarSQL("DELETE FROM Productos_Proveedor WHERE ID_Producto="+ID)
-
-def modificarProductoProveedor(ID_MOD):
-    Nombre = input("Ingrese el nuevo nombre: \t")
-    Descripcion = input("Ingrese la nueva descripcion: \t")
-    Precio = input("Ingrese el nuevo precio: \t")
-    ID_Proveedor=input("Ingrese el nuevo Id del proveedor: \t")
-    sql = "UPDATE Productos_Proveedor SET Nombre=%s,Descripcion=%s,Precio=%s,ID_Proveedor=%s WHERE ID_Producto=%s"
-    val  = [(Nombre,Descripcion,Precio,ID_Proveedor,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
-
-#Ventas
-def realizarVenta():
-    Id_Cliente = input("Ingrese el id del cliente: \t")
-    Id_Producto = input("Ingrese el id del producto: \t")
-    sql = "INSERT INTO Ventas (ID_Cliente, ID_Producto) VALUES (%s,%s)"
-    val  = [(Id_Cliente,Id_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
-
-def borrarVenta(ID):
-    db.ejecutarSQL("DELETE FROM Ventas WHERE ID_Venta="+ID)
-
-def modificarVenta(ID):
-    Id_Cliente = input("Ingrese el nuevo Id del cliente: \t")
-    Id_Producto = input("Ingrese el nuevo Id del producto: \t")
-    sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto WHERE ID_Venta=%s"
-    val  = [(Id_Cliente,Id_Producto,ID)]
-    db.ejecutarSQL_VAL(sql,val)
-#Compras
-def crearCompra():
-    ID_Proveedor = input("Ingrese el id de la venta: \t")
-    ID_ProductoProveedor = input("Ingrese el id del cliente: \t")
-    sql = "INSERT INTO Compras (ID_Venta, ID_C) VALUES (%s,%s)"
-    val  = [(Id_Venta, Id_Cliente)]
-    db.ejecutarSQL_VAL(sql,val)
-
-def borrarCompra(ID):
-    db.ejecutarSQL("DELETE FROM Compras WHERE ID_Venta="+ID)
-
-def modificarCompra(ID_MOD):
-    Id_Venta = input("Ingrese el nuevo Id de la venta: \t")
-    Id_Cliente = input("Ingrese el nuevo Id del cliente: \t")
-    sql = "UPDATE Compras SET ID_Venta=%s, ID_Cliente WHERE ID_Venta=%s"
-    val  = [(Id_Venta, Id_Cliente,ID)]
-    db.ejecutarSQL_VAL(sql,val)
+CREATE TABLE Clientes
+(
+    ID_Cliente INT NOT NULL auto_increment,
+    Nombre VARCHAR(45) NOT NULL,
+    Telefono INT NOT NULL,
+    Direccion VARCHAR(45) NOT NULL,
+    PRIMARY KEY (ID_Cliente)
+);
+CREATE TABLE Productos
+(
+    ID_Producto INT NOT NULL auto_increment,
+    Descripcion VARCHAR(100),
+    Precio INT NOT NULL, 
+    Cantidad INT NOT NULL,
+    PRIMARY KEY (ID_Producto)
+);
+CREATE TABLE Productos_Reservados
+(
+    ID_Producto_Reservado INT NOT NULL auto_increment,
+    ID_Producto INT NOT NULL,
+    PRIMARY KEY (ID_Producto_Reservado),
+    FOREIGN KEY (ID_Producto) REFERENCES Productos(ID_Producto)
+    
+);
+CREATE TABLE Proveedor
+(
+    ID_Proveedor INT NOT NULL auto_increment,
+    Nombre VARCHAR(45) NOT NULL,
+    Telefono INT NOT NULL,
+    PRIMARY KEY  (ID_Proveedor)
+);
+CREATE TABLE Productos_Proveedor
+(
+    ID_Productos_Proveedor INT NOT NULL,
+    ID_Proveedor INT NOT NULL,
+    Precio INT NOT NULL,
+    PRIMARY KEY (ID_Productos_Proveedor),
+    FOREIGN KEY (ID_Proveedor) REFERENCES Proveedor (ID_Proveedor)
+);
+CREATE TABLE Compras
+(
+    ID_Compra INT NOT NULL auto_increment,
+    ID_Producto_Proveedor INT NOT NULL,
+    Cantidad INT NOT NULL,
+    Fecha DATETIME,
+    PRIMARY KEY (ID_Compra),
+    FOREIGN KEY (ID_Producto_Proveedor) REFERENCES Productos_Proveedor(ID_Productos_Proveedor)
+);
+CREATE TABLE Ventas
+(
+    ID_Venta INT NOT NULL auto_increment,
+    ID_Cliente INT NOT NULL,
+    Fecha DATETIME,
+    PRIMARY KEY (ID_Venta),
+    FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_Cliente)  
+);
