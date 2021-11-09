@@ -4,7 +4,7 @@ try:
     mydb = mysql.connector.connect(
     host='127.0.0.1',
     user='root',
-    password='sqlroot',
+    password='',
     database='Tienda_Electronica'
     )
     print("[BD]: Conectado con éxito.")
@@ -27,3 +27,8 @@ def mostrar(parametro):
     myresult = mycursor.fetchall()
     for x in myresult:
         print(x)
+
+def dato(parametro):
+    mycursor.execute(parametro)
+    myresult = mycursor.fetchall()
+    return myresult
