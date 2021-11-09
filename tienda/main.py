@@ -6,8 +6,8 @@ def iniciarSesion():
     if(logica.db.mydb is None or logica.db.mycursor is None):
             input()
             return
-    usuario = input("Ingrese el nombre de usuario: ")
-    contraseña = input("Ingrese la contraseña: ")
+    usuario = input("Ingrese el nombre de usuario:\t")
+    contraseña = input("Ingrese la contraseña:\t")
     
     if(usuario == "admin" and contraseña == "admin"):
         menuAdmin()
@@ -125,22 +125,26 @@ def gestionarVentas():
         if(opcion=='4'):
             logica.modificarVenta(input("Ingrese el ID que desea modificar: \t"))
             confirmar()
+        if(opcion=='9'):
+            break
 
 def gestionarCompras():
     while(1):
         opcion = input("\n1. Mostrar historial de compras\n2. Realizar compra\n3. Eliminar compra\n4. Modificar compra\n9. Salir\t")
         if(opcion=='1'):
-            logica.mostrar("Ventas")
+            logica.mostrar("Compras")
             confirmar()
         if(opcion=='2'):
             logica.crearCompra()
             confirmar()
         if(opcion=='3'):
-            logica.borrarCompra(input("Ingrese el ID de la compra a que desee borrar \t"))
+            logica.borrarCompra(input("Ingrese el ID de la compra a que desee borrar:\t"))
             confirmar()
         if(opcion=='4'):
-            logica.modificarCompra(input("Ingrese el ID que desea modificar: \t"))
+            logica.modificarCompra(input("Ingrese el ID que desea modificar:\t"))
             confirmar()
+        if(opcion=='9'):
+            break
 
 def confirmar():
     PEPE = input("\n\nPresione para 'Enter' continuar: \t")
