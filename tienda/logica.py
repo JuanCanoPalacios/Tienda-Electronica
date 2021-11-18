@@ -101,27 +101,31 @@ def modificarVenta(ID_MOD):#Cuando se modifique una venta se debera cambiar el s
     db.ejecutarSQL_VAL(sql,val)
 
 #Compras
-def crearCompra():#Teoricamente esto esta terminado
+def crearCompra():#Teoricamente esto esta terminado NO SE TESTEO
     ID_Producto_Proveedor = input("Ingrese el ID del Producto del Proveedor:\t")
     Cantidad = input("Ingrese la cantidad del producto a comprar:\t")
     sql = "INSERT INTO Compras (ID_Producto_Proveedor, Cantidad) VALUES (%s,%s)"
-    val  = [(ID_Producto_Proveedor, Cantidad)]
+    val = [(ID_Producto_Proveedor, Cantidad)]
     db.ejecutarSQL_VAL(sql,val)
-    ID_Producto=db.dato("SELECT * FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0]
-    mod_id=str(ID_Producto[0])
-    Producto=db.dato('SELECT * FROM Productos WHERE ID_Producto='+mod_id+'')
-    cantidad=int(Cantidad)
-    cantidad+=int(Producto[0][3])
-    sql=("UPDATE Productos SET Descripcion=%s,Precio=%s,Cantidad=%s WHERE ID_Producto=%s")
-    val  = [(Producto[0][1],Producto[0][2],str(cantidad),Producto[0][0])]
+    ID_Producto=str(db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor))
+    cantidad_actual=int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto))
+    sql=("UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s")
+    val  = [(str(cantidad_actual-int(Cantidad)),ID_Producto)]
     db.ejecutarSQL_VAL(sql,val)
 
-def borrarCompra(ID):#Falta que cuando se borre una compra se baje dicha cantidad de stock
+def borrarCompra(ID):#Falta que cuando se borre una compra se baje dicha cantidad de stock NO SE TESTEO
+    cantidad=int(bd.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID))
+    ID_Producto_Proveedor=db.dato("SELECT ID_Producto_Proveedor FROM Compras WHERE ID_Compra="+ID)
+    ID_Producto=db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)
+    cantidad_actual=int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto))
+    sql=("UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s")
+    val=[(str(cantidad_actual-cantidad),ID_Producto)]
+    db.ejecutarSQL_VAL(sql,val)
     db.ejecutarSQL("DELETE FROM Compras WHERE ID_Compra="+ID)
 
 def modificarCompra(ID_MOD):#Cuando se modifique la compra debera cambiarse respectivamente el stock
     ID_ProductoProveedor = input("Ingrese el nuevo ID del proveedor:\t")
     Cantidad = input("Ingrese la nueva cantidad de la compra:\t")
     sql = "UPDATE Compras SET ID_Producto_Proveedor=%s, Cantidad=%s WHERE ID_Compra=%s"
-    val  = [(ID_ProductoProveedor, Cantidad,ID_MOD)]
+    val = [(ID_ProductoProveedor, Cantidad,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
