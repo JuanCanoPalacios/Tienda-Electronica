@@ -3,13 +3,13 @@ import db
 def mostrar(Tabla):
     db.mostrar("SELECT * FROM "+Tabla)
 
-#CLIENTE
+#Cliente
 def crearCliente():
     Nombre = input("Ingrese su nombre: \t")
     Telefono = input("Ingrese su telefono: \t")
     Direccion = input("Ingrese email: \t")
     sql = "INSERT INTO Clientes (Nombre,Telefono,Direccion) VALUES (%s,%s,%s)"
-    val  = [(Nombre,Telefono,Direccion)]
+    val = [(Nombre,Telefono,Direccion)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarCliente(ID):
@@ -20,15 +20,16 @@ def modificarCliente(ID_MOD):
     Telefono = input("Ingrese su Telefono: \t")
     Direccion = input("Ingrese Direccion: \t")
     sql = ("UPDATE Clientes SET Nombre=%s,Telefono=%s,Direccion=%s WHERE ID_Cliente=%s")
-    val  = [(Nombre,Telefono,Direccion,ID_MOD)]
+    val = [(Nombre,Telefono,Direccion,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
-#PROVEEDOR
+#Proveedor
 def crearProveedor():
     Nombre = input("Ingrese su nombre: \t")
     Telefono = input("Ingrese su telefono: \t")
-    sql = "INSERT INTO Proveedor (Nombre,Telefono) VALUES (%s,%s)"
-    val  = [(Nombre,Telefono)]
+    Email = input("Ingrese email: \t")
+    sql = "INSERT INTO Proveedor (Nombre,Telefono,Email) VALUES (%s,%s,%s)"
+    val = [(Nombre,Telefono,Email)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarProveedor(ID):
@@ -39,16 +40,16 @@ def modificarProveedor(ID_MOD):
     Telefono = input("Ingrese su telefono: \t")
     Email = input("Ingrese email: \t")
     sql = ("UPDATE Proveedor SET Nombre=%s,Telefono=%s, Email=%s WHERE ID_Proveedor=%s")
-    val  = [(Nombre,Telefono,Email,ID_MOD)]
+    val = [(Nombre,Telefono,Email,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
-#PRODUCTOS
+#Productos
 def crearProductos():
     descripcion = input("Ingrese nombre del producto:\t")
     precio = input("Ingrese precio:\t")
     cantidad = input("Ingrese su stock actual:\t")
     sql = "INSERT INTO Productos (Descripcion,Precio,Cantidad) VALUES (%s,%s,%s)"
-    val  = [(descripcion,precio,cantidad)]
+    val = [(descripcion,precio,cantidad)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarProductos(ID):
@@ -56,19 +57,19 @@ def borrarProductos(ID):
 
 def modificarProductos(ID_MOD):
     descripcion = input("Ingrese la nueva descripcion: \t")
-    Cantidad = input("Ingrese la nueva Cantidad: \t")
+    cantidad = input("Ingrese la nueva Cantidad: \t")
     precio = input("Ingrese el nuevo precio: \t")
     sql = ("UPDATE Productos SET Descripcion=%s,Precio=%s,Cantidad=%s WHERE ID_Producto=%s")
-    val  = [(descripcion,precio,Cantidad,ID_MOD)]
+    val = [(descripcion,precio,cantidad,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
 #ProductoProveedor
 def altaProductoProveedor():
     ID_Producto =  input("Ingrese el ID del producto al cual hace referencia:\t")
-    ID_Proveedor = input("Ingrese el Id del proveedor: \t")
+    ID_Proveedor = input("Ingrese el ID del proveedor: \t")
     Precio = input("Ingrese el costo del producto:\t")
     sql = "INSERT INTO Productos_Proveedor (ID_Producto,ID_Proveedor,Precio) VALUES (%s,%s,%s)"
-    val  = [(ID_Producto,ID_Proveedor,Precio)]
+    val = [(ID_Producto,ID_Proveedor,Precio)]
     db.ejecutarSQL_VAL(sql,val)
 
 def bajaProductoProveedor(ID):
@@ -76,28 +77,42 @@ def bajaProductoProveedor(ID):
 
 def modificarProductoProveedor(ID_MOD):
     ID_Producto =  input("Ingrese el ID del producto al cual hace referencia:\t")
-    ID_Proveedor = input("Ingrese el Id del proveedor: \t")
+    ID_Proveedor = input("Ingrese el ID del proveedor: \t")
     Precio = input("Ingrese el costo del producto:\t")
     sql = "UPDATE Productos_Proveedor SET ID_Producto=%s,ID_Proveedor=%s,Precio=%s WHERE ID_Productos_Proveedor=%s"
-    val  = [(ID_Producto,ID_Proveedor,Precio,ID_MOD)]
+    val = [(ID_Producto,ID_Proveedor,Precio,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
 #Ventas
-def realizarVenta():#Falta que cuando se realice una venta se baje el stock
-    Id_Cliente = input("Ingrese el id del cliente: \t")
-    Id_Producto = input("Ingrese el id del producto: \t")
-    sql = "INSERT INTO Ventas (ID_Cliente, ID_Producto) VALUES (%s,%s)"
-    val  = [(Id_Cliente,Id_Producto)]
+def realizarVenta():#A testear
+    ID_Cliente = input("Ingrese el ID del cliente: \t")
+    ID_Producto = input("Ingrese el ID del producto: \t")
+    Cantidad = input("Ingrese la cantidad deseada: \t")
+    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+    sql = "INSERT INTO Ventas (ID_Cliente, ID_Producto, Cantidad) VALUES (%s,%s,%s)"
+    val = [(ID_Cliente,ID_Producto,Cantidad)]
+    db.ejecutarSQL_VAL(sql,val)
+    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+    val = [(str(cantidad_actual-int(Cantidad)), ID_Producto)]
     db.ejecutarSQL_VAL(sql,val)
 
-def borrarVenta(ID):#Cuando se borre una venta se sume el stock de la misma
+def borrarVenta(ID):#A testear
+    ID_Producto = int(db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID)[0][0])
+    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+    cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID)[0][0])
+    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+    val = [(str(cantidad_actual+int(cantidad_venta)), ID_Producto)]
     db.ejecutarSQL("DELETE FROM Ventas WHERE ID_Venta="+ID)
 
-def modificarVenta(ID_MOD):#Cuando se modifique una venta se debera cambiar el stock
-    ID_Cliente = input("Ingrese el nuevo Id del cliente: \t")
-    ID_Producto = input("Ingrese el nuevo Id del producto: \t")
-    sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto=%s WHERE ID_Venta=%s"
-    val  = [(ID_Cliente,ID_Producto,ID_MOD)]
+def modificarVenta(ID_MOD):#A testear
+    cantidad = input("Ingrese la nueva cantidad: \t")
+    ID_Producto = int(db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
+    cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
+    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+    val = [(str(cantidad_actual-int(cantidad_venta)+int(cantidad)), ID_Producto)]
+    sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto=%s, Cantidad=%s WHERE ID_Venta=%s"
+    val = [(ID_Cliente,ID_Producto,Cantidad,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)
 
 #Compras
@@ -109,8 +124,8 @@ def crearCompra():#Testeado
     db.ejecutarSQL_VAL(sql,val)
     ID_Producto = str(db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0][0])
     cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto = "+ID_Producto)[0][0])
-    sql= "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val  = [(str(cantidad_actual-int(Cantidad)),ID_Producto)]
+    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+    val = [(str(cantidad_actual+int(Cantidad)),ID_Producto)]
     db.ejecutarSQL_VAL(sql,val)
 
 def borrarCompra(ID):#Testeado
@@ -123,9 +138,14 @@ def borrarCompra(ID):#Testeado
     db.ejecutarSQL_VAL(sql,val)
     db.ejecutarSQL("DELETE FROM Compras WHERE ID_Compra="+ID)
 
-def modificarCompra(ID_MOD):#Cuando se modifique la compra debera cambiarse respectivamente el stock
-    ID_ProductoProveedor = input("Ingrese el nuevo ID del proveedor:\t")
+def modificarCompra(ID_MOD):#Testeado
+    ID_ProductoProveedor = input("Ingrese el ID del producto a modificar:\t")
     Cantidad = input("Ingrese la nueva cantidad de la compra:\t")
+    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_ProductoProveedor)[0][0])
+    cantidad_compra = int(db.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID_MOD)[0][0])
+    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+    val = [(str(cantidad_actual-int(cantidad_compra)+int(Cantidad)), ID_ProductoProveedor)]
+    db.ejecutarSQL_VAL(sql,val)
     sql = "UPDATE Compras SET ID_Producto_Proveedor=%s, Cantidad=%s WHERE ID_Compra=%s"
-    val = [(ID_ProductoProveedor, Cantidad,ID_MOD)]
+    val = [(ID_ProductoProveedor,Cantidad,ID_MOD)]
     db.ejecutarSQL_VAL(sql,val)

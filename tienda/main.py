@@ -102,7 +102,7 @@ def gestionarVentas():
         if(opcion=='2'):
             logica.realizarVenta()
         if(opcion=='3'):
-            logica.borrarVenta(input("Ingrese el ID de la venta a que desee borar: \t"))
+            logica.borrarVenta(input("Ingrese el ID de la venta a que desee borrar: \t"))
         if(opcion=='4'):
             logica.modificarVenta(input("Ingrese el ID que desea modificar: \t"))
         if(opcion=='9'):
