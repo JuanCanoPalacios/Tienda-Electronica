@@ -5,162 +5,225 @@ def mostrar(Tabla):
     db.mostrar("SELECT * FROM "+Tabla)
 
 #Cliente
-def crearCliente():
-    ui.banner()
-    Nombre = input("[*] Ingrese su nombre: \t")
-    Telefono = input("[*] Ingrese su telefono: \t")
-    Direccion = input("[*] Ingrese email: \t")
-    sql = "INSERT INTO Clientes (Nombre,Telefono,Direccion) VALUES (%s,%s,%s)"
-    val = [(Nombre,Telefono,Direccion)]
-    db.ejecutarSQL_VAL(sql,val)
+def crearCliente(): 
+    try:
+        ui.banner()
+        Nombre = input("[*] Ingrese su nombre: \t")
+        Telefono = int(input("[*] Ingrese su telefono: \t"))
+        Direccion = input("[*] Ingrese email: \t")
+        sql = "INSERT INTO Clientes (Nombre,Telefono,Direccion) VALUES (%s,%s,%s)"
+        val = [(Nombre,Telefono,Direccion)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, compruebe que los datos esten bien colocados.")
 
 def borrarCliente(ID):
-    db.ejecutarSQL("DELETE FROM Clientes WHERE ID_Cliente="+ID)
+
+    if db.dato("SELECT * FROM Clientes Where ID_Cliente="+ID)!=[]:
+     db.ejecutarSQL("DELETE FROM Clientes WHERE ID_Cliente="+ID)
+     print("El usuario fue borrado con exito.")
+    else:
+        print("El usuario no fue borrado porque no existe en la base de datos.")
+
+    
 
 def modificarCliente(ID_MOD):
-    ui.banner()
-    Nombre = input("[*] Ingrese su nombre: \t")
-    Telefono = input("[*] Ingrese su Telefono: \t")
-    Direccion = input("[*] Ingrese Direccion: \t")
-    sql = ("UPDATE Clientes SET Nombre=%s,Telefono=%s,Direccion=%s WHERE ID_Cliente=%s")
-    val = [(Nombre,Telefono,Direccion,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        Nombre = str(input("[*] Ingrese su nombre: \t"))
+        Telefono = int(input("[*] Ingrese su Telefono: \t"))
+        Direccion = str(input("[*] Ingrese Direccion: \t"))
+        sql = ("UPDATE Clientes SET Nombre=%s,Telefono=%s,Direccion=%s WHERE ID_Cliente=%s")
+        val = [(Nombre,str(Telefono),Direccion,ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Uno de lo datos ingresados son incorrectos, porfavor reintente la operación.")
 
 #Proveedor
 def crearProveedor():
-    ui.banner()
-    Nombre = input("[*] Ingrese su nombre: \t")
-    Telefono = input("[*] Ingrese su telefono: \t")
-    Email = input("[*] Ingrese email: \t")
-    sql = "INSERT INTO Proveedor (Nombre,Telefono,Email) VALUES (%s,%s,%s)"
-    val = [(Nombre,Telefono,Email)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        Nombre = str(input("[*] Ingrese su nombre: \t"))
+        Telefono = int(input("[*] Ingrese su telefono: \t"))
+        Email = str(input("[*] Ingrese email: \t"))
+        sql = "INSERT INTO Proveedor (Nombre,Telefono,Email) VALUES (%s,%s,%s)"
+        val = [(Nombre,str(Telefono),Email)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Uno de lo datos ingresados son incorrectos, porfavor reintente la operación.")
 
 def borrarProveedor(ID):
-    db.ejecutarSQL("DELETE FROM Proveedor WHERE ID_Proveedor="+ID)
+    if db.dato("SELECT * FROM Proveedor Where ID_Proveedor="+ID)!=[]:
+        db.ejecutarSQL("DELETE FROM Proveedor WHERE ID_Proveedor="+ID)
+    else:
+        print("El proveedor no fue borrado porque no existe en la base de datos.")
+    
 
 def modificarProveedor(ID_MOD):
-    ui.banner()
-    Nombre = input("[*] Ingrese su nombre: \t")
-    Telefono = input("[*] Ingrese su telefono: \t")
-    Email = input("[*] Ingrese email: \t")
-    sql = ("UPDATE Proveedor SET Nombre=%s,Telefono=%s, Email=%s WHERE ID_Proveedor=%s")
-    val = [(Nombre,Telefono,Email,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        Nombre = str(input("[*] Ingrese su nombre: \t"))
+        Telefono = int(input("[*] Ingrese su telefono: \t"))
+        Email = str(input("[*] Ingrese email: \t"))
+        sql = ("UPDATE Proveedor SET Nombre=%s,Telefono=%s, Email=%s WHERE ID_Proveedor=%s")
+        val = [(Nombre,str(Telefono),Email,ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo modificar el proveedor.")
 
 #Productos
 def crearProductos():
-    ui.banner()
-    descripcion = input("[*] Ingrese nombre del producto:\t")
-    precio = input("[*] Ingrese precio:\t")
-    cantidad = input("[*] Ingrese su stock actual:\t")
-    sql = "INSERT INTO Productos (Descripcion,Precio,Cantidad) VALUES (%s,%s,%s)"
-    val = [(descripcion,precio,cantidad)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        descripcion = input("[*] Ingrese nombre del producto:\t")
+        precio = int(input("[*] Ingrese precio:\t"))
+        cantidad = int(input("[*] Ingrese su stock actual:\t"))
+        sql = "INSERT INTO Productos (Descripcion,Precio,Cantidad) VALUES (%s,%s,%s)"
+        val = [(descripcion,str(precio),str(cantidad))]
+        db.ejecutarSQL_VAL(sql,val)
+    except: 
+        print("Hay un dato mal ingresado, por lo cual no se pudo crear el producto.")
 
 def borrarProductos(ID):
-    db.ejecutarSQL("DELETE FROM Productos WHERE ID_Producto="+ID)
+    if db.dato("SELECT * FROM Productos Where ID_Producto="+ID)!=[]:
+        db.ejecutarSQL("DELETE FROM Productos WHERE ID_Producto="+ID)
+    else:
+        print("El producto no fue borrado porque no existe en la base de datos.")
+    
 
 def modificarProductos(ID_MOD):
-    ui.banner()
-    descripcion = input("[*] Ingrese la nueva descripcion: \t")
-    cantidad = input("[*] Ingrese la nueva Cantidad: \t")
-    precio = input("[*] Ingrese el nuevo precio: \t")
-    sql = ("UPDATE Productos SET Descripcion=%s,Precio=%s,Cantidad=%s WHERE ID_Producto=%s")
-    val = [(descripcion,precio,cantidad,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        descripcion = input("[*] Ingrese la nueva descripcion: \t")
+        cantidad = int(input("[*] Ingrese la nueva Cantidad: \t"))
+        precio = int(input("[*] Ingrese el nuevo precio: \t"))
+        sql = ("UPDATE Productos SET Descripcion=%s,Precio=%s,Cantidad=%s WHERE ID_Producto=%s")
+        val = [(descripcion,str(precio),str(cantidad),ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo modificar el producto.")
 
 #ProductoProveedor
 def altaProductoProveedor():
-    ui.banner()
-    ID_Producto =  input("[*] Ingrese el ID del producto al cual hace referencia:\t")
-    ID_Proveedor = input("[*] Ingrese el ID del proveedor: \t")
-    Precio = input("[*] Ingrese el costo del producto:\t")
-    sql = "INSERT INTO Productos_Proveedor (ID_Producto,ID_Proveedor,Precio) VALUES (%s,%s,%s)"
-    val = [(ID_Producto,ID_Proveedor,Precio)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:   
+
+        ui.banner()
+        ID_Producto =  int(input("[*] Ingrese el ID del producto al cual hace referencia:\t"))
+        ID_Proveedor = int(input("[*] Ingrese el ID del proveedor: \t"))
+        Precio = int(input("[*] Ingrese el costo del producto:\t"))
+        sql = "INSERT INTO Productos_Proveedor (ID_Producto,ID_Proveedor,Precio) VALUES (%s,%s,%s)"
+        val = [(str(ID_Producto),str(ID_Proveedor),str(Precio))]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo crear el producto-proveedor.")
 
 def bajaProductoProveedor(ID):
-    db.ejecutarSQL("DELETE FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID)
+    if db.dato("SELECT * FROM Productos_Proveedor Where ID_Productos_Proveedor="+ID)!=[]:
+        db.ejecutarSQL("DELETE FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID)
+    else:
+        print("El producto-proveedor no fue borrado porque no existe en la base de datos.")
+    
+    
 
 def modificarProductoProveedor(ID_MOD):
-    ui.banner()
-    ID_Producto =  input("[*] Ingrese el ID del producto al cual hace referencia:\t")
-    ID_Proveedor = input("[*] Ingrese el ID del proveedor: \t")
-    Precio = input("[*] Ingrese el costo del producto:\t")
-    sql = "UPDATE Productos_Proveedor SET ID_Producto=%s,ID_Proveedor=%s,Precio=%s WHERE ID_Productos_Proveedor=%s"
-    val = [(ID_Producto,ID_Proveedor,Precio,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:   
+        ui.banner()
+        ID_Producto =  int(input("[*] Ingrese el ID del producto al cual hace referencia:\t"))
+        ID_Proveedor = int(input("[*] Ingrese el ID del proveedor: \t"))
+        Precio = int(input("[*] Ingrese el costo del producto:\t"))
+        sql = "UPDATE Productos_Proveedor SET ID_Producto=%s,ID_Proveedor=%s,Precio=%s WHERE ID_Productos_Proveedor=%s"
+        val = [(str(ID_Producto),str(ID_Proveedor),str(Precio),ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo modificar el producto-proveedor.")
 
 #Ventas
 def realizarVenta():#A testear
-    ui.banner()
-    ID_Cliente = input("[*] Ingrese el ID del cliente: \t")
-    ID_Producto = input("[*] Ingrese el ID del producto: \t")
-    Cantidad = input("[*] Ingrese la cantidad deseada: \t")
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
-    sql = "INSERT INTO Ventas (ID_Cliente, ID_Producto, Cantidad) VALUES (%s,%s,%s)"
-    val = [(ID_Cliente,ID_Producto,Cantidad)]
-    db.ejecutarSQL_VAL(sql,val)
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual-int(Cantidad)), ID_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
+    try: 
+        ui.banner()
+        ID_Cliente = int(input("[*] Ingrese el ID del cliente: \t"))
+        ID_Producto = int(input("[*] Ingrese el ID del producto: \t"))
+        Cantidad = int(input("[*] Ingrese la cantidad deseada: \t"))
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+        sql = "INSERT INTO Ventas (ID_Cliente, ID_Producto, Cantidad) VALUES (%s,%s,%s)"
+        val = [(ID_Cliente,ID_Producto,Cantidad)]
+        db.ejecutarSQL_VAL(sql,val)
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual-int(Cantidad)), ID_Producto)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo realizar la venta.")
 
 def borrarVenta(ID):#A testear
-    ID_Producto = (db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID)[0][0])
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
-    cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID)[0][0])
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual+cantidad_venta), ID_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
-    db.ejecutarSQL("DELETE FROM Ventas WHERE ID_Venta="+ID)
+    try:
+        ID_Producto = (db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID)[0][0])
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+        cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID)[0][0])
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual+cantidad_venta), ID_Producto)]
+        db.ejecutarSQL_VAL(sql,val)
+        db.ejecutarSQL("DELETE FROM Ventas WHERE ID_Venta="+ID)
+    except:
+        print("La venta no fue borrada porque no existe en la base de datos.")
 
 def modificarVenta(ID_MOD):#A testear
-    ui.banner()
-    cantidad = input("[*] Ingrese la nueva cantidad: \t")
-    ID_Producto = (db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
-    cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual-cantidad_venta+cantidad), ID_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
-    sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto=%s, Cantidad=%s WHERE ID_Venta=%s"
-    val = [(ID_Cliente,ID_Producto,Cantidad,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        cantidad = int(input("[*] Ingrese la nueva cantidad: \t"))
+        ID_Producto = int(input((db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])))
+        cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual-cantidad_venta+cantidad), ID_Producto)]
+        db.ejecutarSQL_VAL(sql,val)
+        sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto=%s, Cantidad=%s WHERE ID_Venta=%s"
+        val = [(ID_Cliente,ID_Producto,str(Cantidad),ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo modificar la venta.")
 
 #Compras
 def crearCompra():#Testeado
-    ui.banner()
-    ID_Producto_Proveedor = input("[*] Ingrese el ID del Producto del Proveedor:\t")
-    Cantidad = input("[*] Ingrese la cantidad del producto a comprar:\t")
-    sql = "INSERT INTO Compras (ID_Producto_Proveedor, Cantidad) VALUES (%s,%s)"
-    val = [(ID_Producto_Proveedor, Cantidad)]
-    db.ejecutarSQL_VAL(sql,val)
-    ID_Producto = (db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0][0])
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto = "+ID_Producto)[0][0])
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual+int(Cantidad)),ID_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        ID_Producto_Proveedor = int(input("[*] Ingrese el ID del Producto del Proveedor:\t"))
+        Cantidad = int(input("[*] Ingrese la cantidad del producto a comprar:\t"))
+        sql = "INSERT INTO Compras (ID_Producto_Proveedor, Cantidad) VALUES (%s,%s)"
+        val = [(ID_Producto_Proveedor, Cantidad)]
+        db.ejecutarSQL_VAL(sql,val)
+        ID_Producto = (db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0][0])
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto = "+ID_Producto)[0][0])
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual+int(Cantidad)),ID_Producto)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo crear la compra.")
 
 def borrarCompra(ID):#Testeado
-    cantidad=int(db.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID)[0][0])
-    ID_Producto_Proveedor=str(db.dato("SELECT ID_Producto_Proveedor FROM Compras WHERE ID_Compra="+ID)[0][0])
-    ID_Producto = str(db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0][0])
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual-cantidad),ID_Producto)]
-    db.ejecutarSQL_VAL(sql,val)
-    db.ejecutarSQL("DELETE FROM Compras WHERE ID_Compra="+ID)
+    try:
+        cantidad=int(db.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID)[0][0])
+        ID_Producto_Proveedor=str(db.dato("SELECT ID_Producto_Proveedor FROM Compras WHERE ID_Compra="+ID)[0][0])
+        ID_Producto = str(db.dato("SELECT ID_Producto FROM Productos_Proveedor WHERE ID_Productos_Proveedor="+ID_Producto_Proveedor)[0][0])
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual-cantidad),ID_Producto)]
+        db.ejecutarSQL_VAL(sql,val)
+        db.ejecutarSQL("DELETE FROM Compras WHERE ID_Compra="+ID)
+    except:
+        print("La compra no fue borrada porque no existe en la base de datos.")
 
 def modificarCompra(ID_MOD):#Testeado
-    ui.banner()
-    ID_ProductoProveedor = input("[*] Ingrese el ID del producto a modificar:\t")
-    Cantidad = input("[*] Ingrese la nueva cantidad de la compra:\t")
-    cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_ProductoProveedor)[0][0])
-    cantidad_compra = int(db.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID_MOD)[0][0])
-    sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
-    val = [(str(cantidad_actual-cantidad_compra+int(Cantidad)), ID_ProductoProveedor)]
-    db.ejecutarSQL_VAL(sql,val)
-    sql = "UPDATE Compras SET ID_Producto_Proveedor=%s, Cantidad=%s WHERE ID_Compra=%s"
-    val = [(ID_ProductoProveedor,Cantidad,ID_MOD)]
-    db.ejecutarSQL_VAL(sql,val)
+    try:
+        ui.banner()
+        ID_ProductoProveedor = int(input("[*] Ingrese el ID del producto a modificar:\t"))
+        Cantidad = int(input("[*] Ingrese la nueva cantidad de la compra:\t"))
+        cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_ProductoProveedor)[0][0])
+        cantidad_compra = int(db.dato("SELECT Cantidad FROM Compras WHERE ID_Compra="+ID_MOD)[0][0])
+        sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
+        val = [(str(cantidad_actual-cantidad_compra+int(Cantidad)), ID_ProductoProveedor)]
+        db.ejecutarSQL_VAL(sql,val)
+        sql = "UPDATE Compras SET ID_Producto_Proveedor=%s, Cantidad=%s WHERE ID_Compra=%s"
+        val = [(str(ID_ProductoProveedor),str(Cantidad),ID_MOD)]
+        db.ejecutarSQL_VAL(sql,val)
+    except:
+        print("Hay un dato mal ingresado, por lo cual no se pudo modificar la compra.")
