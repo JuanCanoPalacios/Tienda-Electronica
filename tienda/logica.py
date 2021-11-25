@@ -169,15 +169,16 @@ def borrarVenta(ID):#A testear
 def modificarVenta(ID_MOD):#A testear
     try:
         ui.banner()
-        cantidad = int(input("[*] Ingrese la nueva cantidad: \t"))
-        ID_Producto = int(input((db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])))
+        cantidad = input("[*] Ingrese la nueva cantidad: \t")
+        ID_Cliente = (db.dato("SELECT ID_Cliente FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
+        ID_Producto = (db.dato("SELECT ID_Producto FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
         cantidad_venta = int(db.dato("SELECT Cantidad FROM Ventas WHERE ID_Venta="+ID_MOD)[0][0])
         cantidad_actual = int(db.dato("SELECT Cantidad FROM Productos WHERE ID_Producto="+ID_Producto)[0][0])
         sql = "UPDATE Productos SET Cantidad=%s WHERE ID_Producto=%s"
         val = [(str(cantidad_actual-cantidad_venta+cantidad), ID_Producto)]
         db.ejecutarSQL_VAL(sql,val)
         sql = "UPDATE Ventas SET ID_Cliente=%s, ID_Producto=%s, Cantidad=%s WHERE ID_Venta=%s"
-        val = [(ID_Cliente,ID_Producto,str(Cantidad),ID_MOD)]
+        val = [(IDCliente,ID_Producto,cantidad,ID_MOD)]
         db.ejecutarSQL_VAL(sql,val)
     except:
         print("Hay un dato mal ingresado, por lo cual no se pudo modificar la venta.")
