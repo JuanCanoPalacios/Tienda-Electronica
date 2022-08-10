@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HomeWindow</class>
+ <widget class="QWidget" name="HomeWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>510</width>
+    <height>241</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ElectroStrore - Gestión</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>491</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QPushButton" name="botonGestionarClientes">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Clientes</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botonGestionarVentas">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ventas</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botonGestionarCompras">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Compras</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botonGestionarProductosporProveedor">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Prod. x Prov.</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botonGestionarProductos">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Productos</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botonGestionarProveedores">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>10</y>
+         <width>71</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Proovedores</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>botonGestionarClientes</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botonGestionarVentas</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>445</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botonGestionarProveedores</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botonGestionarProductosporProveedor</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>285</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botonGestionarProductos</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botonGestionarCompras</sender>
+   <signal>released()</signal>
+   <receiver>HomeWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
