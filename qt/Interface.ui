@@ -23,7 +23,15 @@
 	color:#fff;
  
 }
+#searchProv{
+	background-color: #4f4d4d;
 
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+
+}
 #centralwidget{
 	background-color: #1f232a;
 }
@@ -382,20 +390,55 @@
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>More Menu</string>
+              <widget class="QFrame" name="searchProv">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
                </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>Search Provider</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resouces.qrc">
+                    <normaloff>:/icons/icons/minus-circle.svg</normaloff>:/icons/icons/minus-circle.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="addProv">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="resouces.qrc">
-                 <normaloff>:/icons/icons/minus-circle.svg</normaloff>:/icons/icons/minus-circle.svg</iconset>
+                 <normaloff>:/icons/icons/user-plus.svg</normaloff>:/icons/icons/user-plus.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -414,6 +457,11 @@
              <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
                <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <pointsize>13</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Settings</string>
                 </property>
@@ -431,19 +479,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="mainBodyContainer" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 6);</string>
-      </property>
      </widget>
     </item>
    </layout>
